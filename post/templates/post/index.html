@@ -20,14 +20,19 @@
     {% else %}
     <a href="/users/login/"> 로그인하기 </a>
     <a href="/users/signup/"> 회원가입하기 </a>
-    {% endif %} {% for post in post %}
-
-    <p>
-      <a href="/post/{{post.id}}/">
-       
-      </a>
-    </p>
-    <img src="{{post.image.url}}" alt="" width="100px" />
+    {% endif %} {% for post in post %} {% if post.image %}
+    <a href="/post/{{post.id}}/">
+      <img src="{{ post.image.url }}" alt="" width="100px" />
+    </a>
+    {% else %}
+    <a href="/post/{{post.id}}/">
+      <img
+        src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg"
+        alt=""
+        width="100px"
+      />
+    </a>
+    {% endif %}
     <p>{{post.country}}</p>
     <p>{{post.city}}</p>
     <p>{{post.content}}</p>
