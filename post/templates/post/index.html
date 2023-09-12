@@ -22,10 +22,13 @@
     <a href="/users/signup/"> 회원가입하기 </a>
     {% endif %} {% for post in post %}
 
-    <a href="/post/{{post.id}}/">
-      <p>{{post.country}}</p>
-    </a>
-
+    <p>
+      <a href="/post/{{post.id}}/">
+       
+      </a>
+    </p>
+    <img src="{{post.image.url}}" alt="" width="100px" />
+    <p>{{post.country}}</p>
     <p>{{post.city}}</p>
     <p>{{post.content}}</p>
     <p>{{post.user}}</p>
