@@ -17,6 +17,8 @@ def signup(request):
         User.objects.create_user(
             username=request.POST['username'], password=request.POST['password'], email=request.POST['email'])
         return redirect('/post/')
+    else:
+        return HttpResponse("Invalid request method", status=405)
 
 
 def login(request):
@@ -38,3 +40,5 @@ def logout(request):
     if request.method == 'POST':
         auth_logout(request)
         return redirect('/post/')
+    else:
+        return HttpResponse("Invalid request method", status=405)
