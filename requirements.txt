@@ -1,0 +1,6 @@
+asgiref==3.7.2
+backports.zoneinfo;python_version<"3.9"
+Django==4.2.5
+sqlparse==0.4.4
+typing-extensions==4.7.1
+tzdata==2023.3
