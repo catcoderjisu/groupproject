@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>메인 페이지</h1>
-    <div>지도 위치입니다.</div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>메인 페이지</h1>
+  <div>지도 위치입니다.</div>
+
+
+  <div class="card" style="width: 20rem;">
+    <img
+      src="https://images.chosun.com/resizer/k6L-J7LOYHpzi7J0o6f-LAfbtVw=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/RWXHN2ZUBBXGLLFHBULDVSWBAA.jpg"
+      class="card-img-top" alt="...">
+    <ul>
+      {% for i in posts %}
+      <li>
+        <div class="card-body">
+          <h5 class="card-title">{{ i.country }} - {{ i.city }}</h5>
+          <p class="card-text">{{ i.content }}</p>
+          <a href="#" class="btn btn-primary">댓글남기기</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+</body>
+
 </html>
