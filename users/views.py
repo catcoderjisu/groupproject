@@ -14,9 +14,17 @@ def signup(request):
         return render(request, 'users/signup.html')
     elif request.method == 'POST':
         print(request.POST)
-        User.objects.create_user(
-            username=request.POST['username'], password=request.POST['password'], email=request.POST['email'])
-        return redirect('/post/')
+        password = request.POST['password']
+        re_password = request.POST['re_password']
+        if password != re_password:
+            return HttpResponse('비밀번호가 다릅니다.')
+        else:
+            User.objects.create_user(
+                username=request.POST['username'],
+                password=request.POST['password'],
+                email=request.POST['email']
+            )
+            return redirect('/post/')
     else:
         return HttpResponse("Invalid request method", status=405)
 
