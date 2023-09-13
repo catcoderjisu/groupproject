@@ -13,13 +13,13 @@
     <p>반갑습니다 {{user}} 님</p>
     <a href="/post/create/">글 작성하기</a>
 
-    <form action="/users/logout/" method="post">
+    <form action="/accounts/logout/" method="post">
       {% csrf_token %} <input type="submit" value="로그아웃하기" />
     </form>
 
     {% else %}
-    <a href="/users/login/"> 로그인하기 </a>
-    <a href="/users/signup/"> 회원가입하기 </a>
+    <a href="/accounts/login/"> 로그인하기 </a>
+    <a href="/accounts/signup/"> 회원가입하기 </a>
     {% endif %} {% for post in post %}
 
     <a href="/post/{{post.id}}/">
