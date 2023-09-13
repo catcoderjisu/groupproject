@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>{{post.country}}</h1>
+    <p>{{post.id}}</p>
+    <p>{{post.image}}</p>
+    <p>{{post.city}}</p>
+    <p>{{post.content}}</p>
+    <p>{{post.user}}</p>
+    <p>{{post.created_at}}</p>
+    <p>{{post.updated_at}}</p>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
-
-<body>
-  <h1>{{post.country}}</h1>
-
-  <p>{{post.city}}</p>
-  <p>{{post.content}}</p>
-  <p>{{post.user}}</p>
-  <p>{{post.created_at}}</p>
-</body>
-
+    {% if user.is_authenticated %} {% if user == post.user %}
+    <form action="/post/{{post.id}}/delete/" method="post">
+      {% csrf_token %}
+      <input type="submit" value="삭제하기" />
+    </form>
+    <a href="/post/{{post.id}}/update/">수정하기</a>
+    {% endif %} {% endif %}
+  </body>
 </html>
+
