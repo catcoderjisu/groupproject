@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from .models import User, post
+from .models import User
 
 # Create your views here.
 
@@ -38,15 +38,3 @@ def logout(request):
     if request.method == 'POST':
         auth_logout(request)
         return redirect('/post/')
-
-
-def main(request):
-    posts = post.objects.all()
-    context = {
-        "posts": posts,
-    }
-    return render(request, "main.html", context)
-
-
-def main(request):
-    return render(request, 'users/main.html')

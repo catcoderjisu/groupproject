@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Main Page</h1>
 
-    {% if user.is_authenticated %}
-    <p>반갑습니다 {{user}} 님</p>
-    <a href="/post/create/">글 작성하기</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-    <form action="/users/logout/" method="post">
-      {% csrf_token %} <input type="submit" value="로그아웃하기" />
-    </form>
+<body>
+  <h1>Main Page</h1>
 
-    {% else %}
-    <a href="/users/login/"> 로그인하기 </a>
-    <a href="/users/signup/"> 회원가입하기 </a>
-    {% endif %} {% for post in post %} {% if post.image %}
-    <a href="/post/{{post.id}}/">
-      <img src="{{ post.image.url }}" alt="" width="100px" />
-    </a>
-    {% else %}
-    <a href="/post/{{post.id}}/">
-      <img
-        src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg"
-        alt=""
-        width="100px"
-      />
-    </a>
-    {% endif %}
-    <p>{{post.country}}</p>
-    <p>{{post.city}}</p>
-    <p>{{post.content}}</p>
-    <p>{{post.user}}</p>
-    <p>{{post.created_at}}</p>
+  {% if user.is_authenticated %}
+  <p>반갑습니다 {{user}} 님</p>
+  <a href="/post/create/">글 작성하기</a>
 
-    {% endfor %}
-  </body>
+  <form action="/users/logout/" method="post">
+    {% csrf_token %} <input type="submit" value="로그아웃하기" />
+  </form>
+
+  {% else %}
+  <a href="/users/login/"> 로그인하기 </a>
+  <a href="/users/signup/"> 회원가입하기 </a>
+  {% endif %} {% for post in post %} {% if post.image %}
+  <a href="/post/{{post.id}}/">
+    <img src="{{ post.image.url }}" alt="" width="100px" />
+  </a>
+  {% else %}
+  <a href="/post/{{post.id}}/">
+    <img src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg" alt="" width="100px" />
+  </a>
+  {% endif %}
+  <p>{{post.country}}</p>
+  <p>{{post.city}}</p>
+  <p>{{post.content}}</p>
+  <p>{{post.user}}</p>
+  <p>{{post.created_at}}</p>
+
+  {% endfor %}
+</body>
+
 </html>
