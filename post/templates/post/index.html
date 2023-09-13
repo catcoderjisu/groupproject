@@ -11,17 +11,30 @@
 <body>
   <h1>Main Page</h1>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Main Page</h1>
+
+  {% if user.is_authenticated %}
+  <p>반갑습니다 {{user}} 님</p>
+  <a href="/post/create/">글 작성하기</a>
   {% if user.is_authenticated %}
   <p>반갑습니다 {{user}} 님</p>
   <a href="/post/create/">글 작성하기</a>
 
-  <form action="/users/logout/" method="post">
-    {% csrf_token %} <input type="submit" value="로그아웃하기" />
-  </form>
+    <form action="/accounts/logout/" method="post">
+      {% csrf_token %} <input type="submit" value="로그아웃하기" />
+    </form>
 
   {% else %}
-  <a href="/users/login/"> 로그인하기 </a>
-  <a href="/users/signup/"> 회원가입하기 </a>
+  <a href="/accounts/login/"> 로그인하기 </a>
+  <a href="/accounts/signup/"> 회원가입하기 </a>
   {% endif %} {% for post in post %} {% if post.image %}
   <a href="/post/{{post.id}}/">
     <img src="{{ post.image.url }}" alt="" width="100px" />
@@ -36,6 +49,9 @@
   <p>{{post.content}}</p>
   <p>{{post.user}}</p>
   <p>{{post.created_at}}</p>
+
+  {% endfor %}
+</body>
 
   {% endfor %}
 </body>
