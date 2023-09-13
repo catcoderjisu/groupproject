@@ -37,6 +37,13 @@
   <p>{{post.user}}</p>
   <p>{{post.created_at}}</p>
 
+  {% if user == post.user %}
+  <form action="/post/{{ post.id }}/delete/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+  {% endif %}
+
   {% endfor %}
 </body>
 
