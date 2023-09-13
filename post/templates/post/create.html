@@ -8,8 +8,9 @@
   </head>
   <body>
     <h1>Create Post</h1>
-    <form action="/post/create/" method="POST">
-      {% csrf_token %}
+    <form action="/post/create/" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} {{ form.as_p }}
+      <input type="file" name="image" placeholder="image" />
       <input type="text" name="country" placeholder="country" />
       <input type="text" name="city" placeholder="city" />
       <input type="text" name="content" placeholder="content" />
@@ -17,3 +18,4 @@
     </form>
   </body>
 </html>
+
