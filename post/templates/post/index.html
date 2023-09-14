@@ -1,45 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <h1>Main Page</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    @charset "utf-8";
+    /***
+          The new CSS reset - version 1.8.5 (last updated 14.6.2023)
+          GitHub page: https://github.com/elad2412/the-new-css-reset
+      ***/
 
-    {% if user.is_authenticated %}
-    <p>반갑습니다 {{user}} 님</p>
-    <a href="/post/create/">글 작성하기</a>
+    /*
+          Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+          - The "symbol *" part is to solve Firefox SVG sprite bug
+          - The "html" attribute is exclud, because otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
+       */
+    *:where( :not(html, iframe, canvas, img, svg, video, audio):not(svg *,
+        symbol *)) {
+      all: unset;
+      display: revert;
+    }
 
-    <form action="/accounts/logout/" method="post">
-      {% csrf_token %} <input type="submit" value="로그아웃하기" />
-    </form>
+    /* Preferred box-sizing value */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-    {% else %}
-    <a href="/accounts/login/"> 로그인하기 </a>
-    <a href="/accounts/signup/"> 회원가입하기 </a>
-    {% endif %} {% for post in post %} {% if post.image %}
+    /* Reapply the pointer cursor for anchor tags */
+    a,
+    button {
+      cursor: revert;
+    }
+
+    /* Remove list styles (bullets/numbers) */
+    ol,
+    ul,
+    menu {
+      list-style: none;
+    }
+
+    /* For images to not be able to exceed their container */
+    img {
+      max-inline-size: 100%;
+      max-block-size: 100%;
+    }
+
+    /* removes spacing between cells in tables */
+    table {
+      border-collapse: collapse;
+    }
+
+    /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+    input,
+    textarea {
+      -webkit-user-select: auto;
+    }
+
+    /* revert the 'white-space' property for textarea elements on Safari */
+    textarea {
+      white-space: revert;
+    }
+
+    /* minimum style to allow to style meter element */
+    meter {
+      -webkit-appearance: revert;
+      appearance: revert;
+    }
+
+    /* preformatted text - use only for this feature */
+    :where(pre) {
+      all: revert;
+    }
+
+    /* reset default text opacity of input placeholder */
+    ::placeholder {
+      color: unset;
+    }
+
+    /* remove default dot (•) sign */
+    ::marker {
+      content: initial;
+    }
+
+    /* fix the feature of 'hidden' attribute.
+         display:revert; revert to element instead of attribute */
+    :where([hidden]) {
+      display: none;
+    }
+
+    /* revert for bug in Chromium browsers
+         - fix for the content editable attribute will work properly.
+         - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element */
+    :where([contenteditable]:not([contenteditable="false"])) {
+      -moz-user-modify: read-write;
+      -webkit-user-modify: read-write;
+      overflow-wrap: break-word;
+      -webkit-line-break: after-white-space;
+      -webkit-user-select: auto;
+    }
+
+    /* apply back the draggable feature - exist only in Chromium and Safari */
+    :where([draggable="true"]) {
+      -webkit-user-drag: element;
+    }
+
+    /* Revert Modal native behavior */
+    :where(dialog:modal) {
+      all: revert;
+    }
+
+    .mapContainer {
+      padding: 1rem;
+      border: 1px solid rgb(17, 17, 17);
+    }
+
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mapContainer">
+    <div id="map"></div>
+  </div>
+  {% if user.is_authenticated %}
+  <p>반갑습니다 {{user}} 님</p>
+  <a href="/post/create/">글 작성하기</a>
+
+  <form action="/accounts/logout/" method="post">
+    {% csrf_token %} <input type="submit" value="로그아웃하기" />
+  </form>
+
+  {% else %}
+  <a href="/accounts/login/"> 로그인하기 </a>
+  <a href="/accounts/signup/"> 회원가입하기 </a>
+  {% endif %} {% for post in post %} {% if post.image %}
+  <a href="/post/{{post.id}}/">
+    <img src="{{ post.image.url }}" alt="" width="100px" />
+  </a>
+  {% else %}
+  <div>
     <a href="/post/{{post.id}}/">
-      <img src="{{ post.image.url }}" alt="" width="100px" />
-    </a>
-    {% else %}
-    <a href="/post/{{post.id}}/">
-      <img
-        src="/Users/jisukim/Desktop/groupproject/media/images/beach2.jpeg"
-        alt=""
-        width="100px"
-      />
+      <img src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg" alt="" width="100px" />
     </a>
     {% endif %}
-    <p>{{post.country}}</p>
-    <p>{{post.city}}</p>
-    <p>{{post.content}}</p>
-    <p>{{post.user}}</p>
-    <p>{{post.created_at}}</p>
+    <p class="userName">{{post.user}}</p>
+    <p class="createdAt">{{post.created_at}}</p>
+    <p class="country">{{post.country}}</p>
+    <p class="city">{{post.city}}</p>
+    <p class="content">{{post.content}}</p>
+  </div>
 
+  <ul>
+    {% for i in post.comment_set.all %}
+    <li>
+      <div>{{ i.content }}</div>
+    </li>
     {% endfor %}
-  </body>
+  </ul>
+  <form action="/post/{{post.id}}/" method="post">
+    {% csrf_token %}
+    <input type="text" name="comment_form" placeholder="댓글을 입력하세요" />
+    <input type="submit" value="입력" />
+  </form>
+  <br>
+  {% endfor %}
+
+  {% if user == post.user %}
+  <form action="/post/{{ post.id }}/delete/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+  <br>
+  {% endif %}
+
+</body>
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA3n_VFf0kcGIh878nU1I8OOg6mZCCFbI&callback=initMap&libraries=maps,marker&v=beta"></script>
+<script defer>
+  // ------------------------------- db에서 가져온 유저 정보 -------------------------------
+  const allUserName = document.querySelectorAll(".userName");
+  const allCountry = document.querySelectorAll(".country");
+  const allCity = document.querySelectorAll(".city");
+  const allContents = document.querySelectorAll(".content");
+
+  const countryLatLng = [
+    { 한국: [35.9078, 127.7669] },
+    { 대한민국: [35.9078, 127.7669] },
+    { 일본: [36.2048, 138.2529] },
+    { 중국: [35.8617, 104.1954] },
+    { 미국: [37.0902, 95.7129] },
+    { 영국: [55.3781, 3.436] },
+    { 캐나다: [56.1304, 106.3468] },
+    { 태국: [15.87, 100.9925] },
+    { 독일: [51.1657, 10.4515] },
+    { 멕시코: [23.6345, 102.5528] },
+    { 터키: [38.9637, 35.2433] },
+    { 이탈리아: [41.8719, 12.5674] },
+    { 스페인: [40.4637, 3.7492] },
+    { 프랑스: [46.2276, 2.2137] },
+    { 오스트리아: [47.5162, 14.5501] },
+    { 그리스: [39.0742, 21.8243] },
+    { 튀르키예: [38.9637, 35.2433] },
+  ];
+
+  const userCnt = allUserName.length;
+
+  // 모든 유저 정보가 담기는 객체
+  const allUserInfo = [];
+
+  for (let i = 0; i < userCnt; i++) {
+    let userInfo = {};
+
+    userInfo["user"] = allUserName[i].innerText;
+    userInfo["country"] = allCountry[i].innerText;
+    userInfo["city"] = allCity[i].innerText;
+    userInfo["content"] = allContents[i].innerText;
+
+    allUserInfo.push(userInfo);
+  }
+
+  allUserInfo.forEach((user) => {
+    countryLatLng.forEach((countryVal) => {
+      if (countryVal[user.country]) {
+        user["lat"] = countryVal[user.country][0];
+        user["lng"] = countryVal[user.country][1];
+      }
+    });
+  });
+
+  console.log("유저카운트: ", userCnt);
+  console.log("모든 유저 정보 객체: ", allUserInfo);
+
+  // reverse geocode map api
+  window.initMap = function () {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      // center: { lat: 37.5519, lng: 126.9918 },
+      zoom: 5,
+    });
+
+    const bounds = new google.maps.LatLngBounds();
+    const infoWindow = new google.maps.InfoWindow();
+
+    allUserInfo.forEach(({ user, country, content, lat, lng }, idx) => {
+      const marker = new google.maps.Marker({
+        position: { lat, lng },
+        label: user,
+        map,
+      });
+      bounds.extend(marker.position);
+
+      marker.addListener("click", () => {
+        map.panTo(marker.position);
+        infoWindow.setContent(content);
+        infoWindow.open({
+          anchor: marker,
+          map,
+        });
+      });
+      console.log(idx);
+    });
+    map.fitBounds(bounds);
+  };
+</script>
+</body>
+
 </html>

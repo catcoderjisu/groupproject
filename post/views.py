@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from post.models import Post
+from post.models import Post, Comment
 
 
 # Create your views here.
@@ -36,10 +36,24 @@ def create(request):
 def detail(request, post_id):
     if request.method == 'GET':
         post = Post.objects.get(id=post_id)
+        comments = post.comment_set.all()
+        print(comments)
         context = {
             'post': post,
+            'comments': comments,
         }
         return render(request, 'post/detail.html', context)
+
+    elif request.method == 'POST':
+        post = Post.objects.get(id=post_id)
+        user = request.user
+        comment_form = request.POST['comment_form']
+        Comment.objects.create(
+            content=comment_form,
+            post=post,
+            user=user,
+        )
+        return redirect('/post/')
 
 
 def update(request, post_id):
