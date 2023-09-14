@@ -293,6 +293,22 @@
     ul > li > div {
       padding: 5px 10px;
     }
+    .loginText {
+      color:#002c58;
+      font-weight: bold;
+    }
+    .signupText {
+      width: 100px;
+      height: 35px;
+      background: #002c58;
+      text-align: center;
+      color: #fff;
+      line-height: 35px;
+      font-weight: bold; 
+    }
+    .signupText:hover {
+      background: #46a2ff;
+    }
   </style>
 </head>
 <body>
@@ -307,8 +323,8 @@
     </div>
 
     {% else %}
-    <a href="/accounts/login/"> 로그인하기 </a>
-    <a href="/accounts/signup/"> 회원가입하기 </a>
+    <a class="loginText" href="/accounts/login/"> 로그인 </a>
+    <a class="signupText" href="/accounts/signup/"> 회원가입 </a>
     {% endif %} 
   </div>
 
