@@ -15,13 +15,13 @@
   <p>반갑습니다 {{user}} 님</p>
   <a href="/post/create/">글 작성하기</a>
 
-    <form action="/accounts/logout/" method="post">
+    <form action="/account/logout/" method="post">
       {% csrf_token %} <input type="submit" value="로그아웃하기" />
     </form>
 
   {% else %}
-  <a href="/accounts/login/"> 로그인하기 </a>
-  <a href="/accounts/signup/"> 회원가입하기 </a>
+  <a href="/account/login/"> 로그인하기 </a>
+  <a href="/account/signup/"> 회원가입하기 </a>
   {% endif %} {% for post in post %} {% if post.image %}
   <a href="/post/{{post.id}}/">
     <img src="{{ post.image.url }}" alt="" width="100px" />
