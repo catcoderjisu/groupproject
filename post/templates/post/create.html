@@ -10,12 +10,23 @@
     <h1>Create Post</h1>
     <form action="/post/create/" method="POST" enctype="multipart/form-data">
       {% csrf_token %} {{ form.as_p }}
+      <pre>
       <input type="file" name="image" placeholder="image" />
-      <input type="text" name="country" placeholder="country" />
+
+      <input type="field" name="country" placeholder="country" />
+
       <input type="text" name="city" placeholder="city" />
+
       <input type="text" name="content" placeholder="content" />
+
+      <label for="starting_date">여행시작하고 싶은 날짜</label>
+      <input type="date" name="starting_date" placeholder="starting_date" />
+
+      <label for="finishing_date">여행을 끝내고 싶은 날짜</label>
+      <input type="date" name="finishing_date" placeholder="starting_date" />
+      
       <button type="submit">글 작성하기</button>
+      </pre>
     </form>
   </body>
 </html>
-
