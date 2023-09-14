@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Please Confirm Your Email Address{% endblocktrans %}
+{% blocktrans %}이메일 주소를 확인해주세요{% endblocktrans %}
 {% endautoescape %}
