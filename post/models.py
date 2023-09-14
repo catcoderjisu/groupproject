@@ -8,7 +8,7 @@ class Post(models.Model):
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     content = models.TextField()
-    starting_date = models.DateField()
+    starting_date = models.DateField('starting date', null=True, blank=True)
     finishing_date = models.DateField('finishing date', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
