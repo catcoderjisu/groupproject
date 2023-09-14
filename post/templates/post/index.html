@@ -126,7 +126,6 @@
       }
     </style>
   </head>
-
   <body>
     <div class="mapContainer">
       <div id="map"></div>
@@ -163,11 +162,19 @@
       <p class="content">{{post.content}}</p>
     </div>
     {% endfor %}
-    <script
+  {% if user == post.user %}
+  <form action="/post/{{ post.id }}/delete/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+  {% endif %}
+
+  {% endfor %}
+</body>
+ <script
       async
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA3n_VFf0kcGIh878nU1I8OOg6mZCCFbI&callback=initMap&libraries=maps,marker&v=beta"
     ></script>
-
     <script defer>
       // ------------------------------- db에서 가져온 유저 정보 -------------------------------
       const allUserName = document.querySelectorAll(".userName");

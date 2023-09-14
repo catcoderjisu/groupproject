@@ -1,4 +1,4 @@
 {% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Account Already Exists{% endblocktrans %}
+{% blocktrans %}계정이 이미 존재합니다.{% endblocktrans %}
 {% endautoescape %}
