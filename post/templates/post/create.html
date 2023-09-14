@@ -1,32 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Create Post</h1>
-    <form action="/post/create/" method="POST" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.as_p }}
-      <pre>
-      <input type="file" name="image" placeholder="image" />
+<div class="wrap">
+  <div class="container">
+  <div class="imgStyle"></div>
+  <form
+  action="/post/create/"
+  method="POST"
+  enctype="multipart/form-data"
+  >
+  {% csrf_token %} {{ form.as_p }}
+  <!-- <input
+  class="inputStyle"
+  type="file"
+  name="image"
+  placeholder="image"
+  /> -->
+  
+  <div class="filebox">
+  <label for="file">파일찾기</label>
+  <input
+  class="upload-name"
+  value="첨부파일"
+  placeholder="첨부파일"
+  />
+  <input
+  type="file"
+  id="file"
+  name="image"
+  placeholder="image"
+  required
+  />
+  </div>
+  
+  <input
+  class="inputStyle"
+  type="text"
+  name="country"
+  placeholder="어떤 나라에 가시나요?"
+  required
+  />
+  <input
+  class="inputStyle"
+  type="text"
+  name="city"
+  placeholder="어떤 도시에 가시나요?"
+  required
+  />
+  <textarea
+  class="inputStyle textArea"
+  type="text"
+  name="content"
+  placeholder="뭐할꺼?"
+  required
+  ></textarea>
 
-      <input type="field" name="country" placeholder="country" />
+  <label for="starting_date">여행시작하고 싶은 날짜</label>
+  <input type="date" name="starting_date" placeholder="starting_date" />
 
-      <input type="text" name="city" placeholder="city" />
+  <label for="finishing_date">여행을 끝내고 싶은 날짜</label>
+  <input type="date" name="finishing_date" placeholder="starting_date" />
 
-      <input type="text" name="content" placeholder="content" />
-
-      <label for="starting_date">여행시작하고 싶은 날짜</label>
-      <input type="date" name="starting_date" placeholder="starting_date" />
-
-      <label for="finishing_date">여행을 끝내고 싶은 날짜</label>
-      <input type="date" name="finishing_date" placeholder="starting_date" />
-      
-      <button type="submit">글 작성하기</button>
-      </pre>
-    </form>
-  </body>
-</html>
+  <button class="btnStyle" type="submit">글 작성하기</button>
+  </form>
+  </div>
+  </div>
+  

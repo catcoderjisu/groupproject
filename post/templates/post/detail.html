@@ -8,15 +8,15 @@
   </head>
   <body>
     <h1>{{post.country}}</h1>
-    <p>{{post.id}}</p>
-    <p>{{post.image}}</p>
-    <p>{{post.city}}</p>
-    <p>{{post.content}}</p>
-    <p>{{post.user}}</p>
-    <p>{{post.starting_date}}</p>
-    <p>{{post.finishing_date}}</p>
-    <p>{{post.created_at}}</p>
-    <p>{{post.updated_at}}</p>
+    <img src="{{ post.image.url }}" alt="" width="100px" />
+    <p>가고싶은 나라 {{post.country}}</p>
+    <p>가고싶은 도시 {{post.city}}</p>
+    <p>가고싶은 이유 {{post.content}}</p>
+    <p>작성자 {{post.user}}</p>
+    <p>여행 시작 날짜 {{post.starting_date}}</p>
+    <p>여행 종료 날짜 {{post.finishing_date}}</p>
+    <p>작성날짜 {{post.created_at}}</p>
+    <p>수정날짜 {{post.updated_at}}</p>
 
     {% if user.is_authenticated %} {% if user == post.user %}
     <form action="/post/{{post.id}}/delete/" method="post">
