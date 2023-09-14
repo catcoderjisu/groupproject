@@ -25,8 +25,10 @@ def create(request):
         country = request.POST['country']
         city = request.POST['city']
         content = request.POST['content']
+        starting_date = request.POST['starting_date']
+        finishing_date = request.POST['finishing_date']
         Post.objects.create(
-            image=image, country=country, city=city, content=content, user=request.user
+            image=image, country=country, city=city, content=content, user=request.user, starting_date=starting_date, finishing_date=finishing_date
         )
         return redirect('/post/')
 
@@ -62,15 +64,20 @@ def update(request, post_id):
         }
         return render(request, 'post/update.html', context)
     elif request.method == 'POST':
+        print(request.POST)
         image = request.FILES.get('image')
         post = Post.objects.get(id=post_id)
         country = request.POST['country']
         city = request.POST['city']
         content = request.POST['content']
+        starting_date = request.POST['starting_date']
+        finishing_date = request.POST['finishing_date']
         is_completed = request.POST.get('is_completed', False)
         post.country = country
         post.city = city
         post.content = content
+        post.starting_date = starting_date
+        post.finishing_date = finishing_date
         post.is_completed = is_completed
         post.save()
         return redirect('/post/')
