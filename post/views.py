@@ -51,7 +51,6 @@ def detail(request, post_id):
             post=post,
             user=user,
         )
-
         return redirect('/post/')
 
 
