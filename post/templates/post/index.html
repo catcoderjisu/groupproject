@@ -15,9 +15,9 @@
   <p>반갑습니다 {{user}} 님</p>
   <a href="/post/create/">글 작성하기</a>
 
-    <form action="/accounts/logout/" method="post">
-      {% csrf_token %} <input type="submit" value="로그아웃하기" />
-    </form>
+  <form action="/accounts/logout/" method="post">
+    {% csrf_token %} <input type="submit" value="로그아웃하기" />
+  </form>
 
   {% else %}
   <a href="/accounts/login/"> 로그인하기 </a>
@@ -37,11 +37,27 @@
   <p>{{post.user}}</p>
   <p>{{post.created_at}}</p>
 
+  <ul>
+    {% for i in post.comment_set.all %}
+    <li>
+      <div>{{ i.content }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <form action="/post/{{post.id}}/" method="post">
+    {% csrf_token %}
+    <input type="text" name="comment_form" placeholder="댓글을 입력하세요" />
+    <input type="submit" value="입력" />
+  </form>
+  <br>
+
   {% if user == post.user %}
   <form action="/post/{{ post.id }}/delete/" method="post">
     {% csrf_token %}
     <input type="submit" value="Delete">
   </form>
+  <br>
   {% endif %}
 
   {% endfor %}
