@@ -113,73 +113,252 @@
     :where(dialog:modal) {
       all: revert;
     }
-
     .mapContainer {
-      padding: 1rem;
-      border: 1px solid rgb(17, 17, 17);
+      /* position: relative; */
+      /* top: 51px; */
+      margin-bottom: 50px;
+      padding: 2rem;
     }
-
+    .mapContainer::before {
+      width: 100%;
+      height: 50px;
+      content: "세계지도에 목적지를 표시하세요!";
+      display: block;
+      background-color: #43a1ff;
+      color: #fff;
+      line-height: 50px;
+      text-align: center;
+    }
     #map {
       width: 100%;
-      height: 500px;
+      height: 350px;
+    }
+    .header {
+      width: 100%;
+      height: 55px;
+      z-index: 999;
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgb(226, 226, 226);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    }
+    .header > p {
+      font-weight: bold;
+    }
+    .inputBox {
+      display: flex;
+      padding: 10px 0;
+    }
+    .inputBox > a {
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      margin-right: 10px;
+    }
+    .inputBox > a:hover {
+      font-weight: bold;
+    }
+    .inputBox form {
+      background: #002c58;
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .inputBox > form:hover {
+      background-color: #76bbff
+    }
+    .icon {
+      display: flex;
+      /* justify-content: center; */
+      /* align-content: center; */
+      padding: 15px 0;
+    }
+    .icon::before {
+        content: "";
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: url('https://velog.velcdn.com/images/duboo/post/3de198f6-fc76-4b47-b2f1-a2200e7c0195/image.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .userAndTime {
+      margin-left: 10px;
+    }
+    .userName {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .createdAt {
+      color: #5c5c5c;
+    }
+    .contents {
+      border-bottom: 1px solid black;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .contents-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contents-box {
+      border-bottom: 1px solid black;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      padding: 1rem;
+      width: 600px;
+      position: relative;
+      margin-bottom: 60px;
+    }
+    .imgBox {
+      width: calc(600px - 2rem);
+      height: 380px;
+    }
+    .imgBox img {
+      width: calc(600px - 2rem);
+      height: 380px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .countryAndCity {
+      position: absolute;
+      width: calc(600px - 2rem);
+      height: 50px;
+      top: 425px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: black;
+      color: #fff;
+      padding: 0 1rem;
+      opacity: .5;
+    }
+    .countryAndCity p {
+      opacity: none;
+    }
+    .country {
+      font-weight: bold;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    .city {
+      font-size: 17px;
+    }
+    .content {
+      border-bottom: 1px solid rgb(219, 219, 219);
+      padding: 10px 10px 20px;
+      margin-bottom: 10px;
+    }
+    .textBox {
+      width: 100%;
+      padding: 0 5px;
+      margin-top: 20px;
+    }
+    .textBox .textBox_input {
+      width: 80%;
+      background: rgb(241, 241, 241);
+      height: 35px;
+      line-height: 35px;
+      padding: 0 5px;
+    }
+    .textBox .textBox_btn {
+      width: 19%;
+      height: 35px;
+      background: #002c58;
+      text-align: center;
+      color: #fff;
+      line-height: 35px;
+      font-weight: bold;
+    }
+    ul > li > div {
+      padding: 5px 10px;
     }
   </style>
 </head>
-
 <body>
+  <div class="header">
+    {% if user.is_authenticated %}
+    <p>반갑습니다 {{user}} 님</p>
+    <div class="inputBox">
+      <a href="/post/create/">게시글 작성</a>
+      <form action="/accounts/logout/" method="post">
+        {% csrf_token %} <input type="submit" value="로그아웃" />
+      </form>
+    </div>
+
+    {% else %}
+    <a href="/accounts/login/"> 로그인하기 </a>
+    <a href="/accounts/signup/"> 회원가입하기 </a>
+    {% endif %} 
+  </div>
+
   <div class="mapContainer">
     <div id="map"></div>
   </div>
-  {% if user.is_authenticated %}
-  <p>반갑습니다 {{user}} 님</p>
-  <a href="/post/create/">글 작성하기</a>
+  <div class="contents-container">
 
-  <form action="/accounts/logout/" method="post">
-    {% csrf_token %} <input type="submit" value="로그아웃하기" />
-  </form>
-
-  {% else %}
-  <a href="/accounts/login/"> 로그인하기 </a>
-  <a href="/accounts/signup/"> 회원가입하기 </a>
-  {% endif %} {% for post in post %} {% if post.image %}
-  <a href="/post/{{post.id}}/">
-    <img src="{{ post.image.url }}" alt="" width="100px" />
-  </a>
-  {% else %}
-  <div>
-    <a href="/post/{{post.id}}/">
-      <img src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg" alt="" width="100px" />
+  </div>
+      {% for post in post %} {% if post.image %}
+    <div class="icon">
+      <div class="userAndTime">
+        <p class="userName">{{post.user}}</p>
+        <p class="createdAt">{{post.created_at}}</p>
+      </div>
+    </div>
+    <a class="imgBox" href="/post/{{post.id}}/">
+      <img src="{{ post.image.url }}" alt="게시물 이미지" />
+    </a>
+    {% else %}
+    <a class="imgBox" href="/post/{{post.id}}/">
+      <img src="/Users/jisukim/Desktop/onestone/media/images/IMG_0115.jpg" alt="게시물 이미지" />
     </a>
     {% endif %}
-    <p class="userName">{{post.user}}</p>
-    <p class="createdAt">{{post.created_at}}</p>
-    <p class="country">{{post.country}}</p>
-    <p class="city">{{post.city}}</p>
+
+    <div class="countryAndCity">
+      <p class="country">{{post.country}}</p>
+      <p class="city">{{post.city}}</p>
+    </div>
     <p class="content">{{post.content}}</p>
-  </div>
+    <ul>
+      {% for i in post.comment_set.all %}
+      <li>
+        <div>{{ i.content }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+      <form class="textBox" action="/post/{{post.id}}/" method="post">
+        {% csrf_token %}
+        <input class="textBox_input" type="text" name="comment_form" placeholder="여행 사진에 댓글을 달아주세요!" />
+        <input class="textBox_btn" type="submit" value="작성" />
+      </form>
+      {% endfor %}
 
-  <ul>
-    {% for i in post.comment_set.all %}
-    <li>
-      <div>{{ i.content }}</div>
-    </li>
-    {% endfor %}
-  </ul>
-  <form action="/post/{{post.id}}/" method="post">
-    {% csrf_token %}
-    <input type="text" name="comment_form" placeholder="댓글을 입력하세요" />
-    <input type="submit" value="입력" />
-  </form>
-  <br>
-  {% endfor %}
-
-  {% if user == post.user %}
-  <form action="/post/{{ post.id }}/delete/" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Delete">
-  </form>
-  <br>
-  {% endif %}
+      {% if user == post.user %}
+      <form action="/post/{{ post.id }}/delete/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+      </form>
+      {% endif %}
 
 </body>
 <script async
@@ -242,14 +421,14 @@
   // reverse geocode map api
   window.initMap = function () {
     const map = new google.maps.Map(document.getElementById("map"), {
-      // center: { lat: 37.5519, lng: 126.9918 },
+      center: { lat: 37.5519, lng: 126.9918 },
       zoom: 5,
     });
 
     const bounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
 
-    allUserInfo.forEach(({ user, country, content, lat, lng }, idx) => {
+    allUserInfo.forEach(({ user, country, content, lat, lng }) => {
       const marker = new google.maps.Marker({
         position: { lat, lng },
         label: user,
@@ -265,10 +444,33 @@
           map,
         });
       });
-      console.log(idx);
     });
     map.fitBounds(bounds);
   };
+  // style
+  const iconEl = document.querySelectorAll('.icon');
+  const imgEl = document.querySelectorAll('.imgBox');
+  const countryEl = document.querySelectorAll('.countryAndCity');
+  // const cityEl = document.querySelectorAll('.city');
+  const contentEl = document.querySelectorAll('.content');
+  const ulEl = document.querySelectorAll('ul');
+  const textBoxEl = document.querySelectorAll('.textBox');
+  
+
+  for(let i=0; i<userCnt; i++) {
+    const contentsBox = document.createElement("div");
+    contentsBox.append(iconEl[i])
+    contentsBox.append(imgEl[i])
+    contentsBox.append(countryEl[i])
+    // contentsBox.append(cityEl[i])e
+    contentsBox.append(contentEl[i])
+    contentsBox.append(ulEl[i])
+    contentsBox.append(textBoxEl[i])
+
+    contentsBox.classList.add('contents-box')
+
+    document.querySelector('.contents-container').append(contentsBox)
+  }
 </script>
 </body>
 
