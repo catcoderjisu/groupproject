@@ -5,17 +5,299 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      @charset "utf-8";
+      /***
+          The new CSS reset - version 1.8.5 (last updated 14.6.2023)
+          GitHub page: https://github.com/elad2412/the-new-css-reset
+      ***/
+
+      /*
+          Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+          - The "symbol *" part is to solve Firefox SVG sprite bug
+          - The "html" attribute is exclud, because otherwise a bug in Chrome breaks the CSS hyphens property (https://github.com/elad2412/the-new-css-reset/issues/36)
+       */
+      *:where(
+          :not(html, iframe, canvas, img, svg, video, audio):not(
+              svg *,
+              symbol *
+            )
+        ) {
+        all: unset;
+        display: revert;
+      }
+
+      /* Preferred box-sizing value */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* Reapply the pointer cursor for anchor tags */
+      a,
+      button {
+        cursor: revert;
+      }
+
+      /* Remove list styles (bullets/numbers) */
+      ol,
+      ul,
+      menu {
+        list-style: none;
+      }
+
+      /* For images to not be able to exceed their container */
+      img {
+        max-inline-size: 100%;
+        max-block-size: 100%;
+      }
+
+      /* removes spacing between cells in tables */
+      table {
+        border-collapse: collapse;
+      }
+
+      /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+      input,
+      textarea {
+        -webkit-user-select: auto;
+      }
+
+      /* revert the 'white-space' property for textarea elements on Safari */
+      textarea {
+        white-space: revert;
+      }
+
+      /* minimum style to allow to style meter element */
+      meter {
+        -webkit-appearance: revert;
+        appearance: revert;
+      }
+
+      /* preformatted text - use only for this feature */
+      :where(pre) {
+        all: revert;
+      }
+
+      /* reset default text opacity of input placeholder */
+      ::placeholder {
+        color: unset;
+      }
+
+      /* remove default dot (•) sign */
+      ::marker {
+        content: initial;
+      }
+
+      /* fix the feature of 'hidden' attribute.
+         display:revert; revert to element instead of attribute */
+      :where([hidden]) {
+        display: none;
+      }
+
+      /* revert for bug in Chromium browsers
+         - fix for the content editable attribute will work properly.
+         - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element */
+      :where([contenteditable]:not([contenteditable="false"])) {
+        -moz-user-modify: read-write;
+        -webkit-user-modify: read-write;
+        overflow-wrap: break-word;
+        -webkit-line-break: after-white-space;
+        -webkit-user-select: auto;
+      }
+
+      /* apply back the draggable feature - exist only in Chromium and Safari */
+      :where([draggable="true"]) {
+        -webkit-user-drag: element;
+      }
+
+      /* Revert Modal native behavior */
+      :where(dialog:modal) {
+        all: revert;
+      }
+      .wrap {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        width: 500px;
+        min-width: 500px;
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+          rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+        width: 100%;
+      }
+      .inputStyle {
+        height: 52px;
+        background: #fff;
+        font-size: 16px;
+        border-radius: 5px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 0 10px;
+      }
+      .inputStyle:focus {
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 1px solid #1089ff;
+      }
+      .btnStyle {
+        background: #1089ff;
+        border: 1px solid #1089ff;
+        color: #fff;
+        width: 100%;
+        height: 52px;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .imgStyle {
+        background: url("https://velog.velcdn.com/images/duboo/post/e8469b29-b46a-4bf0-b184-5e7afeafa0ec/image.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: block;
+        height: 300px;
+        width: 100%;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+      .filebox {
+        width: 100%;
+        display: flex;
+      }
+      .filebox .upload-name {
+        display: inline-block;
+        border: 1px solid #dddddd;
+        color: #999999;
+        height: 40px;
+        margin-bottom: 10px;
+        width: 70%;
+        padding: 10px;
+      }
+      .filebox label {
+        display: inline-block;
+        text-align: center;
+        line-height: 40px;
+        color: #fff;
+        background: #1089ff;
+        cursor: pointer;
+        height: 40px;
+        margin-bottom: 10px;
+        width: 30%;
+        font-weight: bold;
+      }
+      .filebox input[type="file"] {
+        position: absolute;
+        width: 0;
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        height: 40px;
+      }
+      .textArea {
+        height: 200px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+    </style>
   </head>
   <body>
-    <h1>Create Post</h1>
-    <form action="/post/create/" method="POST" enctype="multipart/form-data">
-      {% csrf_token %} {{ form.as_p }}
-      <input type="file" name="image" placeholder="image" />
-      <input type="text" name="country" placeholder="country" />
-      <input type="text" name="city" placeholder="city" />
-      <input type="text" name="content" placeholder="content" />
-      <button type="submit">글 작성하기</button>
-    </form>
+    <div class="wrap">
+      <div class="container">
+        <div class="imgStyle"></div>
+        <form
+          action="/post/create/"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %} {{ form.as_p }}
+          <!-- <input
+class="inputStyle"
+type="file"
+name="image"
+placeholder="image"
+/> -->
+
+          <div class="filebox">
+            <label for="file">파일찾기</label>
+            <input
+              class="upload-name"
+              value="첨부파일"
+              placeholder="첨부파일"
+            />
+            <input
+              type="file"
+              id="file"
+              name="image"
+              placeholder="image"
+              required
+            />
+          </div>
+
+          <input
+            class="inputStyle"
+            type="text"
+            name="country"
+            placeholder="어떤 나라에 가시나요?"
+            required
+          />
+          <input
+            class="inputStyle"
+            type="text"
+            name="city"
+            placeholder="어떤 도시에 가시나요?"
+            required
+          />
+          <textarea
+            class="inputStyle textArea"
+            type="text"
+            name="content"
+            placeholder="뭐할꺼?"
+            required
+          ></textarea>
+          <label for="starting_date">여행시작하고 싶은 날짜</label>
+          <input type="date" name="starting_date" placeholder="starting_date" />
+
+          <label for="finishing_date">여행을 끝내고 싶은 날짜</label>
+          <input
+            type="date"
+            name="finishing_date"
+            placeholder="starting_date"
+          />
+
+          <button class="btnStyle" type="submit">글 작성하기</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const fileSel = document.querySelector("#file");
+      let uploadFile = document.querySelector(".upload-name");
+      fileSel.addEventListener("change", () => {
+        let fileName = fileSel.value;
+        uploadFile.value = fileName;
+      });
+    </script>
   </body>
 </html>
-
