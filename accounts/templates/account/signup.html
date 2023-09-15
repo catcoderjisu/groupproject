@@ -119,39 +119,51 @@
       justify-content: center;
       align-items: center;
     }
-
-    .container {
+    .wrap h1 {
+      display: none;
+    }
+    .wrap > div > strong {
+      display: none;
+    }
+    .wrap > div > ul {
+      width: 500px;
+      height: 50px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .wrap > div > ul > li {
+      padding: 1rem;
+      font-weight: bold;
+      background: #1089ff;
+      color: #fff;
+      width: 50%;
+      text-align: center;
+    }
+    .wrap > div > ul > li:nth-child(1) {
+      margin-right: 10px;
+    }
+    .wrap > div > ul > li:nth-child(2) {
+      background: #fff;
+      color: #1089ff;
+      border: 1px solid #1089ff;
+      margin-left: 10px;
+    }
+    .wrap > p {
+      margin: 15px 0 30px;
+    }
+    .wrap > p > a {
+      color: #1089ff;
+      font-weight: bold;
     }
     form {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem;
-      width: 100%;
+      padding: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
-    .inputStyle {
-      height: 52px;
-      background: #fff;
-      font-size: 16px;
-      border-radius: 5px;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 0 10px;
-    }
-
-    .inputStyle:focus {
-      outline: none;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      border: 1px solid #1089ff;
-    }
-
     .btnStyle {
       background: #1089ff;
       border: 1px solid #1089ff;
@@ -161,6 +173,32 @@
       text-align: center;
       font-weight: bold;
       margin-top: 10px;
+      cursor: pointer;
+    }
+    .signup {
+      width: 500px;
+    }
+    .signup p label {
+      display: none;
+    }
+    .signup p input {
+      width: 100%;
+      height: 52px;
+      background: #fff;
+      font-size: 16px;
+      border-radius: 5px;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border: 1px solid rgba(56, 56, 56, 0.1);
+      margin-bottom: 10px;
+      padding: 0 10px;
+    }
+
+    .signup p input:focus {
+      outline: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      border: 1px solid #1089ff;
     }
   </style>
 </head>
@@ -190,7 +228,6 @@
 
 {% endblock %}
   </div>
-
 </body>
 </html>
 
